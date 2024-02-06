@@ -1,0 +1,101 @@
+name: build asciidoc 2 mkdocs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  adoc_build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Get build container
+        id: adocbuild
+        uses: tonynv/asciidoctor-action@master
+        with:
+          program: "asciidoctor -b docbook -a leveloffset=+1 -o docbook.xml master.adoc"
+      - name: Print execution time
+        run: echo "Time ${{ steps.adocbuild.outputs.time }}"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docbook.xml
+          path: ./docbook.xml
+
+  convert_md:
+    runs-on: ubuntu-latest
+    needs:
+      - adoc_build
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docbook.xml
+          path: .
+      - name: Convert to Markdown
+        uses: docker://pandoc/core:2.9
+        with:
+          args: "--atx-headers --wrap=preserve -t markdown_strict -f docbook -o index.md docbook.xml"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: index.md
+          path: ./index.md
+
+  copy_output:
+    runs-on: ubuntu-latest
+    needs:
+      - convert_md
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: index.md
+          path: .
+      - name: Copy output to docs/
+        run: |
+          mkdir docs
+          cp -r images docs
+          cp index.md docs
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs
+          path: ./docs
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs:
+      - copy_output
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Configure Git Credentials
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV 
+      - uses: actions/cache@v4
+        with:
+          key: mkdocs-material-${{ env.cache_id }}
+          path: .cache
+          restore-keys: |
+            mkdocs-material-
+      - run: pip install mkdocs-material mkdocs-git-revision-date-localized-plugin
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          path: docs/
+          merge-multiple: true
+      - name: Display structure of downloaded files
+        run: ls -R docs
+      - run: mkdocs gh-deploy --force
+

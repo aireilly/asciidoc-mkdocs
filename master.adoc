@@ -1,0 +1,11 @@
+= Asciidocs MKDocs Static Site Demo
+
+:imagesdir: images
+:includedir: .
+:vernum: 13
+:compat-mode:
+:doctype: book
+
+include::modules/getting_started.adoc[leveloffset=+1]
+
+include::modules/asciidoc_syntax.adoc[leveloffset=+1]

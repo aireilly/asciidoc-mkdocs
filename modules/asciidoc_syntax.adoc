@@ -1,0 +1,102 @@
+== Asciidoc syntax sample
+
+* level 1
+** level 2
+*** level 3
+**** level 4
+***** level 5
+* level 1
+
+https://asciidoctor.org - automatic!
+
+xref::https://asciidoctor.org[Asciidoctor]
+
+xref::https://github.com/asciidoctor[Asciidoctor @ *GitHub*]
+
+
+[source,ruby]
+----
+require 'sinatra' // <1>
+
+get '/hi' do // <2>
+"Hello World!" // <3>
+end
+----
+<1> Library import
+<2> URL mapping
+<3> HTTP response body
+
+
+Tables
+Table with a title, three columns, a header, and two rows of content:
+
+.Table Title
+|===
+|Name of Column 1 |Name of Column 2 |Name of Column 3
+
+|Cell in column 1, row 1
+|Cell in column 2, row 1
+|Cell in column 3, row 1
+
+|Cell in column 1, row 2
+|Cell in column 2, row 2
+|Cell in column 3, row 2
+|===
+Admonitions
+AsciiDoc provides five admonition style labels out-of-the-box:
+
+NOTE: Please note that...
+
+TIP: Pro tip...
+
+IMPORTANT: Don't forget...
+
+WARNING: Watch out for...
+
+CAUTION: Ensure that...
+Admonitions can also encapsulate any block content:
+
+[IMPORTANT]
+====
+While werewolves are hardy community members, keep in mind the following dietary concerns:
+====
+
+bold *constrained* & **un**constrained
+
+monospace bold `*constrained*` & ``**un**``constrained
+
+monospace italic `_constrained_` & ``__un__``constrained
+
+monospace bold italic `*_constrained_*` & ``**__un__**``constrained
+
+== Level 1 Section Title
+
+italic _constrained_ & __un__constrained
+
+bold italic *_constrained_* & **__un__**constrained
+
+monospace `constrained` & ``un``constrained
+
+=== Level 2 Section Title
+
+italic _constrained_ & __un__constrained
+
+==== Level 3 Section Title
+
+italic _constrained_ & __un__constrained
+
+bold italic *_constrained_* & **__un__**constrained
+
+monospace `constrained` & ``un``constrained
+
+===== Level 4 Section Title
+
+More text
+
+====== Level 5 Section Title
+
+Text
+
+== Another Level 1 Section Title
+
+And text.
