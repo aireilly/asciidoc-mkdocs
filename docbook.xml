@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>Asciidocs MKDocs Static Site Demo</title>
+<date>2024-02-06</date>
+</info>
+<section xml:id="_asciidocs_mkdocs_static_site_demo">
+<title>Asciidocs MKDocs Static Site Demo</title>
+<section xml:id="_getting_started">
+<title>Getting Started</title>
+<simpara>This document is sample asciidoc content used to test a github pages based asciidoc static site generated with pandoc and MKDocs.</simpara>
+<simpara>The build is done with Github actions.</simpara>
+<informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="images/image.png"/>
+</imageobject>
+<textobject><phrase>Image</phrase></textobject>
+</mediaobject>
+</informalfigure>
+</section>
+<section xml:id="_asciidoc_syntax_sample">
+<title>Asciidoc syntax sample</title>
+<itemizedlist>
+<listitem>
+<simpara>level 1</simpara>
+<itemizedlist>
+<listitem>
+<simpara>level 2</simpara>
+<itemizedlist>
+<listitem>
+<simpara>level 3</simpara>
+<itemizedlist>
+<listitem>
+<simpara>level 4</simpara>
+<itemizedlist>
+<listitem>
+<simpara>level 5</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara>level 1</simpara>
+</listitem>
+</itemizedlist>
+<simpara><link xl:href="https://asciidoctor.org">https://asciidoctor.org</link> - automatic!</simpara>
+<simpara><link linkend=":https://asciidoctor.org">Asciidoctor</link></simpara>
+<simpara><link linkend=":https://github.com/asciidoctor">Asciidoctor @ <emphasis role="strong">GitHub</emphasis></link></simpara>
+<programlisting language="ruby" linenumbering="unnumbered">require 'sinatra' <co xml:id="CO1-1"/>
+
+get '/hi' do <co xml:id="CO1-2"/>
+"Hello World!" <co xml:id="CO1-3"/>
+end</programlisting>
+<calloutlist>
+<callout arearefs="CO1-1">
+<para>Library import</para>
+</callout>
+<callout arearefs="CO1-2">
+<para>URL mapping</para>
+</callout>
+<callout arearefs="CO1-3">
+<para>HTTP response body</para>
+</callout>
+</calloutlist>
+<simpara>Tables
+Table with a title, three columns, a header, and two rows of content:</simpara>
+<table frame="all" rowsep="1" colsep="1">
+<title>Table Title</title>
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="33.3333*"/>
+<colspec colname="col_2" colwidth="33.3333*"/>
+<colspec colname="col_3" colwidth="33.3334*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Name of Column 1</entry>
+<entry align="left" valign="top">Name of Column 2</entry>
+<entry align="left" valign="top">Name of Column 3</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>Cell in column 1, row 1</simpara></entry>
+<entry align="left" valign="top"><simpara>Cell in column 2, row 1</simpara></entry>
+<entry align="left" valign="top"><simpara>Cell in column 3, row 1</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Cell in column 1, row 2</simpara></entry>
+<entry align="left" valign="top"><simpara>Cell in column 2, row 2</simpara></entry>
+<entry align="left" valign="top"><simpara>Cell in column 3, row 2</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<simpara>Admonitions
+AsciiDoc provides five admonition style labels out-of-the-box:</simpara>
+<note>
+<simpara>Please note that&#8230;&#8203;</simpara>
+</note>
+<tip>
+<simpara>Pro tip&#8230;&#8203;</simpara>
+</tip>
+<important>
+<simpara>Don&#8217;t forget&#8230;&#8203;</simpara>
+</important>
+<warning>
+<simpara>Watch out for&#8230;&#8203;</simpara>
+</warning>
+<caution>
+<simpara>Ensure that&#8230;&#8203;
+Admonitions can also encapsulate any block content:</simpara>
+</caution>
+<important>
+<simpara>While werewolves are hardy community members, keep in mind the following dietary concerns:</simpara>
+</important>
+<simpara>bold <emphasis role="strong">constrained</emphasis> &amp; <emphasis role="strong">un</emphasis>constrained</simpara>
+<simpara>monospace bold <literal>*constrained*</literal> &amp; ``<emphasis role="strong">un</emphasis>``constrained</simpara>
+<simpara>monospace italic <literal>_constrained_</literal> &amp; ``<emphasis>un</emphasis>``constrained</simpara>
+<simpara>monospace bold italic <literal>*_constrained_*</literal> &amp; ``<emphasis role="strong"><emphasis>un</emphasis></emphasis>``constrained</simpara>
+</section>
+<section xml:id="_level_1_section_title">
+<title>Level 1 Section Title</title>
+<simpara>italic <emphasis>constrained</emphasis> &amp; <emphasis>un</emphasis>constrained</simpara>
+<simpara>bold italic <emphasis role="strong"><emphasis>constrained</emphasis></emphasis> &amp; <emphasis role="strong"><emphasis>un</emphasis></emphasis>constrained</simpara>
+<simpara>monospace <literal>constrained</literal> &amp; ``un``constrained</simpara>
+<section xml:id="_level_2_section_title">
+<title>Level 2 Section Title</title>
+<simpara>italic <emphasis>constrained</emphasis> &amp; <emphasis>un</emphasis>constrained</simpara>
+<section xml:id="_level_3_section_title">
+<title>Level 3 Section Title</title>
+<simpara>italic <emphasis>constrained</emphasis> &amp; <emphasis>un</emphasis>constrained</simpara>
+<simpara>bold italic <emphasis role="strong"><emphasis>constrained</emphasis></emphasis> &amp; <emphasis role="strong"><emphasis>un</emphasis></emphasis>constrained</simpara>
+<simpara>monospace <literal>constrained</literal> &amp; ``un``constrained</simpara>
+<section xml:id="_level_4_section_title">
+<title>Level 4 Section Title</title>
+<simpara>More text</simpara>
+<section xml:id="_level_5_section_title">
+<title>Level 5 Section Title</title>
+<simpara>Text</simpara>
+</section>
+</section>
+</section>
+</section>
+</section>
+<section xml:id="_another_level_1_section_title">
+<title>Another Level 1 Section Title</title>
+<simpara>And text.</simpara>
+</section>
+</section>
+</article>
