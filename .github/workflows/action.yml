@@ -30,7 +30,7 @@ jobs:
       - adoc_build
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@4.1.7
         with:
           name: docbook.xml
           path: .
@@ -52,7 +52,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       - name: Download artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@4.1.7
         with:
           name: index.md
           path: .
@@ -91,7 +91,7 @@ jobs:
             mkdocs-material-
       - run: pip install mkdocs-material mkdocs-git-revision-date-localized-plugin
       - name: Download artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@4.1.7
         with:
           path: docs/
           merge-multiple: true
