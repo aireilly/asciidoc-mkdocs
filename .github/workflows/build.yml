@@ -1,0 +1,69 @@
+---
+name: Build and deploy AsciiDoc to MKDocs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_asciidoc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+ 
+      - name: Build AsciiDoc
+        uses: tonynv/asciidoctor-action@master
+        with:
+          program: "asciidoctor -b docbook -a leveloffset=+1 -o docbook.xml master.adoc"
+
+      - name: Convert to Markdown
+        uses: docker://pandoc/core:2.9
+        with:
+          args: "--atx-headers --wrap=preserve -t markdown_strict -f docbook -o index.md docbook.xml"
+
+      - name: Upload markdown source
+        uses: actions/upload-artifact@v4
+        with:
+          name: markdown-source
+          path: index.md
+
+  deploy:
+    needs: build_asciidoc
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure Git Credentials
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: Download markdown source
+        uses: actions/download-artifact@v4
+        with:
+          name: markdown-source
+
+      # Create the docs directory if it doesn't exist
+      - name: Create docs directory
+        run: mkdir -p docs
+
+      # Now move the file
+      - name: Move index.md to docs/
+        run: mv index.md docs/index.md
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+
+      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV 
+      - uses: actions/cache@v4
+        with:
+          key: mkdocs-material-${{ env.cache_id }}
+          path: .cache
+          restore-keys: |
+            mkdocs-material-
+
+      - run: pip install mkdocs-material 
+
+      - run: mkdocs gh-deploy --force
